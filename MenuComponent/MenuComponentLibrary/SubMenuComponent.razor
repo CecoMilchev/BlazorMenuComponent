@@ -1,6 +1,6 @@
 ﻿@using MenuComponentLibrary.Models
 
-<li @onclick="ToggleContainer" class="@(IsRootItem ? "bl-root" : "")">
+<li @onmouseenter="ToggleContainer" @onmouseleave="ToggleContainer"  class="@(IsRootItem ? "bl-root" : "")">
     <span>
         @Item.Text
         @if (Item.MenuItems != null)
@@ -8,26 +8,28 @@
             <span class="chevron @(IsRootItem ? Item.IsExpanded ? "top":"bottom" : Item.IsExpanded ? "left": "right")"></span>
         }
     </span>
-</li>
 
-@if (Item.MenuItems != null && Item.IsExpanded)
-{
-    <div class="submenu-container" style="border: 1px solid;">
-        <ul>
-            @foreach (var subItem in Item.MenuItems)
-            {
-                <SubMenuComponent Item="subItem" IsRootItem="false"></SubMenuComponent>
-            }
-        </ul>
-    </div>
-}
+ @if (Item.MenuItems != null && Item.IsExpanded)
+    {
+        <div class="submenu-container"  style=@myStyle>
+            <ul>
+                @foreach (var subItem in Item.MenuItems)
+                {
+                    <SubMenuComponent Item="subItem" IsRootItem="false"></SubMenuComponent>
+                }
+            </ul>
+        </div>
+    }
+</li>
 
 @code {
     [Parameter] public MenuItem Item { get; set; }
     [Parameter] public bool IsRootItem { get; set; }
+    string myStyle;
 
-    async Task ToggleContainer()
+    async Task ToggleContainer(MouseEventArgs e)
     {
-        Item.IsExpanded = !Item.IsExpanded;
+         Item.IsExpanded = !Item.IsExpanded;
+        //myStyle = "left: " + (e.PageX - e.OffsetX) + "px; top: " + (e.PageY - e.OffsetY) + "px;";
     }
 }
