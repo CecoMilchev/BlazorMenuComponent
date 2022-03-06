@@ -1,26 +1,18 @@
 ﻿@using MenuComponentLibrary.Models
 
-<div class="my-component" style="height: 100px;">
+<div class="my-component">
     <ul>
         @foreach (var item in Items)
         {
-          @*  <li>
-                <span>
-                    @item.Text
-                    @if (item.MenuItems != null)
-                    {
-                        <span class="chevron bottom"></span>
-                    }
-                </span>
-                @if (item.MenuItems != null)
-                {*@
-                    <SubMenuComponent Item="item" IsRootItem="true"></SubMenuComponent>
-                @*}
-            </li>*@
+            <SubMenuComponent Item="item" IsRootItem="true"></SubMenuComponent>
         }
     </ul>
 </div>
 
 @code {
-    [Parameter] public IEnumerable<MenuItem> Items { get; set; }
+    [Parameter]
+    public IEnumerable<MenuItem> Items { get; set; }
+    
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnSelect { get; set; }
 }

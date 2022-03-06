@@ -1,17 +1,18 @@
 ﻿@using MenuComponentLibrary.Models
+@page "/menu"
 
-<li @onmouseenter="ToggleContainer" @onmouseleave="ToggleContainer"  class="@(IsRootItem ? "bl-root" : "")">
-    <span>
+<li @onmouseenter="ToggleContainer" @onmouseleave="ToggleContainer" @onclick="OnSelect" class="@(IsRootItem ? "bl-root" : "")">
+    <span class="bl-item">
         @Item.Text
         @if (Item.MenuItems != null)
         {
-            <span class="chevron @(IsRootItem ? Item.IsExpanded ? "top":"bottom" : Item.IsExpanded ? "left": "right")"></span>
+            <span class="bl-icon-container chevron @(IsRootItem ? Item.IsExpanded ? "top":"bottom" : Item.IsExpanded ? "left": "right")"></span>
         }
     </span>
 
- @if (Item.MenuItems != null && Item.IsExpanded)
+    @if (Item.MenuItems != null && Item.IsExpanded)
     {
-        <div class="submenu-container"  style=@myStyle>
+        <div class="submenu-container" style=@innerStyle>
             <ul>
                 @foreach (var subItem in Item.MenuItems)
                 {
@@ -23,13 +24,24 @@
 </li>
 
 @code {
-    [Parameter] public MenuItem Item { get; set; }
-    [Parameter] public bool IsRootItem { get; set; }
-    string myStyle;
+    [Parameter] 
+    public MenuItem Item { get; set; }
+
+    [Parameter] 
+    public bool IsRootItem { get; set; }
+
+    [Parameter] 
+    public EventCallback<MouseEventArgs> OnSelect { get; set; }
+
+    string innerStyle;
 
     async Task ToggleContainer(MouseEventArgs e)
     {
-         Item.IsExpanded = !Item.IsExpanded;
-        //myStyle = "left: " + (e.PageX - e.OffsetX) + "px; top: " + (e.PageY - e.OffsetY) + "px;";
+        Item.IsExpanded = !Item.IsExpanded;
+
+        if (!IsRootItem)
+        {
+            innerStyle = "left: 100%; top: 50%;";
+        }
     }
 }

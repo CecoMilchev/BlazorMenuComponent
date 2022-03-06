@@ -6,26 +6,34 @@
         list-style-type: none;
         padding-left: 1rem;
         margin: 0;
+        padding: 0;
     }
 
         .my-component ul li.bl-root {
-            display: inline;
+            display: inline-block;
         }
 
-            .my-component ul li span {
-                padding: 10px;
-                cursor: default;
-            }
+        .my-component ul li span.bl-item {
+            padding: 10px;
+            cursor: default;
+            display: inline-block;
+            width: -webkit-fill-available;
+            white-space: nowrap;
+        }
 
         .my-component ul span:hover {
             background-color: #ddd;
+            color: #DB7093;
         }
 
-            .my-component ul span .submenu-container {
-                display: block;
-                width: fit-content;
-            }
+        .my-component ul span .submenu-container {
+            display: block;
+            width: fit-content;
+        }
 
+.bl-icon-container {
+    padding-left: 0.3rem;
+}
 
 .chevron::before {
     border-style: solid;
@@ -35,7 +43,6 @@
     height: 0.45em;
     left: 0.15em;
     position: relative;
-    top: 0.15em;
     transform: rotate(-45deg);
     vertical-align: middle;
     width: 0.45em;
@@ -55,7 +62,10 @@
     left: 0.25em;
     transform: rotate(-135deg);
 }
+
 .submenu-container {
     width: fit-content;
     position: absolute;
+    border: 0.5px solid rgb(208,208,208);
+    box-shadow: rgba(0, 0, 0, 0.35) -5px 5px 15px;
 }

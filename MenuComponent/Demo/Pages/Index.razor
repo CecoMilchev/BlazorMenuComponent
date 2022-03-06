@@ -4,7 +4,7 @@
 
 <PageTitle>Index</PageTitle>
 
-<MenuComponent Items="menuItems" />
+<MenuComponent Items="menuItems" OnSelect=@DisplayText />
 
 @code {
     List<MenuItem> menuItems = new List<MenuItem>()
@@ -13,11 +13,16 @@
             MenuItems = new List<MenuItem>(){
                 new MenuItem(){ Text="Item 1.1"},
                 new MenuItem() { Text= "Item 1.2",
-                    MenuItems= new List<MenuItem>() { new MenuItem() {Text="Item 1.2.1" }}
+                    MenuItems= new List<MenuItem>() { new MenuItem() {Text="Item 1.2.1" },new MenuItem() {Text="Item 1.2.2" }}
                 }
             }
         },
         new MenuItem(){Text= "Item 2"},
         new MenuItem(){Text= "Item 3"},
     };
+
+    async Task DisplayText()
+    {
+        
+    }
 }
