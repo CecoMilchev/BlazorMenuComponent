@@ -4,7 +4,9 @@
 
 <PageTitle>Index</PageTitle>
 
-<MenuComponent Items="menuItems" OnSelect=@DisplayText />
+<p>@message</p>
+
+<MenuComponent Items="menuItems" OnSelect="@ShowMessage" />
 
 @code {
     List<MenuItem> menuItems = new List<MenuItem>()
@@ -21,8 +23,10 @@
         new MenuItem(){Text= "Item 3"},
     };
 
-    async Task DisplayText()
+    private string? message;
+
+    private void ShowMessage(MenuItem item)
     {
-        
+        message = $"You have clicked on {item.Text}";
     }
 }

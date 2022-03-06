@@ -4,15 +4,16 @@
     <ul>
         @foreach (var item in Items)
         {
-            <SubMenuComponent Item="item" IsRootItem="true"></SubMenuComponent>
+            <SubMenuComponent Item="@item" OnClickCallback="OnSelect" IsRootItem="true"></SubMenuComponent>
         }
     </ul>
 </div>
 
+
 @code {
     [Parameter]
     public IEnumerable<MenuItem> Items { get; set; }
-    
+
     [Parameter]
-    public EventCallback<MouseEventArgs> OnSelect { get; set; }
+    public EventCallback<MenuItem> OnSelect { get; set; }
 }

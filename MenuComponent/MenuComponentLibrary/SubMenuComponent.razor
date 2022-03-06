@@ -1,7 +1,7 @@
 ﻿@using MenuComponentLibrary.Models
 @page "/menu"
 
-<li @onmouseenter="ToggleContainer" @onmouseleave="ToggleContainer" @onclick="OnSelect" class="@(IsRootItem ? "bl-root" : "")">
+<li @onmouseenter="ToggleContainer" @onmouseleave="ToggleContainer" @onclick="OnClick" @key="Item.Text" class="@(IsRootItem ? "bl-root" : "")">
     <span class="bl-item">
         @Item.Text
         @if (Item.MenuItems != null)
@@ -30,12 +30,16 @@
     [Parameter] 
     public bool IsRootItem { get; set; }
 
-    [Parameter] 
-    public EventCallback<MouseEventArgs> OnSelect { get; set; }
+    [Parameter]
+    public EventCallback<MenuItem> OnClickCallback { get; set; }
 
-    string innerStyle;
+    string? innerStyle;
 
-    async Task ToggleContainer(MouseEventArgs e)
+    private async Task OnClick(EventArgs e) {
+        await OnClickCallback.InvokeAsync(Item);
+    }
+
+    void ToggleContainer(MouseEventArgs e)
     {
         Item.IsExpanded = !Item.IsExpanded;
 
