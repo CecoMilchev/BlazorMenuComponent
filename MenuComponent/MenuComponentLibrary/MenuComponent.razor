@@ -1,3 +1,26 @@
-﻿<div class="my-component">
-    This component is defined in the <strong>MenuComponentLibrary</strong> library.
+﻿@using MenuComponentLibrary.Models
+
+<div class="my-component">
+    <ul>
+        @foreach (var item in Items)
+        {
+          @*  <li>
+                <span>
+                    @item.Text
+                    @if (item.MenuItems != null)
+                    {
+                        <span class="chevron bottom"></span>
+                    }
+                </span>
+                @if (item.MenuItems != null)
+                {*@
+                    <SubMenuComponent Item="item" IsRootItem="true"></SubMenuComponent>
+                @*}
+            </li>*@
+        }
+    </ul>
 </div>
+
+@code {
+    [Parameter] public IEnumerable<MenuItem> Items { get; set; }
+}

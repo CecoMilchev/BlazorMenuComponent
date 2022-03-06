@@ -1,5 +1,23 @@
 ﻿@page "/"
+@using MenuComponentLibrary
+@using MenuComponentLibrary.Models
 
 <PageTitle>Index</PageTitle>
 
-<MenuComponentLibrary.MenuComponent/>
+<MenuComponent Items="menuItems" />
+
+@code {
+    List<MenuItem> menuItems = new List<MenuItem>()
+    {
+        new MenuItem(){Text= "Item 1",
+            MenuItems = new List<MenuItem>(){
+                new MenuItem(){ Text="Item 1.1"},
+                new MenuItem() { Text= "Item 1.2",
+                    MenuItems= new List<MenuItem>() { new MenuItem() {Text="Item 1.2.1" }}
+                }
+            }
+        },
+        new MenuItem(){Text= "Item 2"},
+        new MenuItem(){Text= "Item 3"},
+    };
+}

@@ -1,0 +1,33 @@
+﻿@using MenuComponentLibrary.Models
+
+<li @onclick="ToggleContainer" class="@(IsRootItem ? "bl-root" : "")">
+    <span>
+        @Item.Text
+        @if (Item.MenuItems != null)
+        {
+            <span class="chevron @(IsRootItem ? Item.IsExpanded ? "top":"bottom" : Item.IsExpanded ? "left": "right")"></span>
+        }
+    </span>
+</li>
+
+@if (Item.MenuItems != null && Item.IsExpanded)
+{
+    <div class="submenu-container" style="border: 1px solid;">
+        <ul>
+            @foreach (var subItem in Item.MenuItems)
+            {
+                <SubMenuComponent Item="subItem" IsRootItem="false"></SubMenuComponent>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    [Parameter] public MenuItem Item { get; set; }
+    [Parameter] public bool IsRootItem { get; set; }
+
+    async Task ToggleContainer()
+    {
+        Item.IsExpanded = !Item.IsExpanded;
+    }
+}
